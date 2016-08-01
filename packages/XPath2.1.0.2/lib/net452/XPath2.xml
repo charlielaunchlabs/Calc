@@ -1,0 +1,324 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>XPath2</name>
+    </assembly>
+    <members>
+        <member name="F:Wmhelp.XPath2.YYParser.errorText">
+            error text *
+        </member>
+        <member name="M:Wmhelp.XPath2.YYParser.yyerror(System.String)">
+            simplified error message.
+                  @see <a href="#yyerror(java.lang.String, java.lang.String[])">yyerror</a>
+        </member>
+        <member name="M:Wmhelp.XPath2.YYParser.yyerror(System.String,System.String[])">
+            (syntax) error message.
+                  Can be overwritten to control message format.
+                  @param message text to be displayed.
+                  @param expected vector of acceptable tokens, if available.
+        </member>
+        <member name="F:Wmhelp.XPath2.YYParser.yyFinal">
+            debugging support, requires the package jay.yydebug.
+                  Set to null to suppress debugging messages.
+        </member>
+        <member name="M:Wmhelp.XPath2.YYParser.yyname(System.Int32)">
+            index-checked interface to yyNames[].
+                  @param token single character or %token value.
+                  @return token name or [illegal] or [unknown].
+        </member>
+        <member name="M:Wmhelp.XPath2.YYParser.yyExpecting(System.Int32)">
+            computes list of expected tokens on error by tracing the tables.
+                  @param state for which to compute the list.
+                  @return list of token names.
+        </member>
+        <member name="M:Wmhelp.XPath2.YYParser.yyparse(Wmhelp.XPath2.yyParser.yyInput,System.Object)">
+            the generated parser, with debugging messages.
+                  Maintains a state and a value stack, currently with fixed maximum size.
+                  @param yyLex scanner.
+                  @param yydebug debug message writer implementing yyDebug, or null.
+                  @return result of the last reduction, if any.
+                  @throws yyException on irrecoverable parse error.
+        </member>
+        <member name="F:Wmhelp.XPath2.YYParser.yyMax">
+            initial size and increment of the state/value stack [default 256].
+                  This is not final so that it can be overwritten outside of invocations
+                  of yyparse().
+        </member>
+        <member name="M:Wmhelp.XPath2.YYParser.yyDefault(System.Object)">
+            executed at the beginning of a reduce action.
+                  Used as $$ = yyDefault($1), prior to the user-specified action, if any.
+                  Can be overwritten to provide deep copy, etc.
+                  @param first value for $1, or null.
+                  @return first.
+        </member>
+        <member name="M:Wmhelp.XPath2.YYParser.yyparse(Wmhelp.XPath2.yyParser.yyInput)">
+            the generated parser.
+                  Maintains a state and a value stack, currently with fixed maximum size.
+                  @param yyLex scanner.
+                  @return result of the last reduction, if any.
+                  @throws yyException on irrecoverable parse error.
+        </member>
+        <member name="T:Wmhelp.XPath2.yyParser.yyException">
+            thrown for irrecoverable syntax errors and stack overflow.
+        </member>
+        <member name="T:Wmhelp.XPath2.yyParser.yyInput">
+            must be implemented by a scanner object to supply input to the parser.
+        </member>
+        <member name="M:Wmhelp.XPath2.yyParser.yyInput.advance">
+            move on to next token.
+                    @return false if positioned beyond tokens.
+                    @throws IOException on input error.
+        </member>
+        <member name="M:Wmhelp.XPath2.yyParser.yyInput.token">
+            classifies current token.
+                    Should not be called if advance() returned false.
+                    @return current %token or single character.
+        </member>
+        <member name="M:Wmhelp.XPath2.yyParser.yyInput.value">
+            associated with current token.
+                    Should not be called if advance() returned false.
+                    @return value for token().
+        </member>
+        <member name="T:Wmhelp.XPath2.MS.XmlQualifiedNameTest">
+            <summary>
+            XmlQualifiedName extends XmlQualifiedName to support wildcards and adds nametest functionality
+            Following are the examples:
+                {A}:B     XmlQualifiedNameTest.New("B", "A")        Match QName with namespace A        and local name B
+                *         XmlQualifiedNameTest.New(null, null)      Match any QName
+                {A}:*     XmlQualifiedNameTest.New(null, "A")       Match QName with namespace A        and any local name
+                          XmlQualifiedNameTest.New("A", false)
+                *:B       XmlQualifiedNameTest.New("B", null)       Match QName with any namespace      and local name B
+                ~{A}:*    XmlQualifiedNameTest.New("B", "A")        Match QName with namespace not A    and any local name
+                {~A}:B    only as a result of the intersection      Match QName with namespace not A    and local name B
+            </summary>
+        </member>
+        <member name="P:Wmhelp.XPath2.MS.XmlQualifiedNameTest.Wildcard">
+            <summary>
+            Full wildcard
+            </summary>
+        </member>
+        <member name="M:Wmhelp.XPath2.MS.XmlQualifiedNameTest.#ctor(System.String,System.String,System.Boolean)">
+            <summary>
+            Constructor
+            </summary>
+        </member>
+        <member name="M:Wmhelp.XPath2.MS.XmlQualifiedNameTest.New(System.String,System.String)">
+            <summary>
+            Construct new from name and namespace. Returns singleton Wildcard in case full wildcard
+            </summary>
+        </member>
+        <member name="P:Wmhelp.XPath2.MS.XmlQualifiedNameTest.IsWildcard">
+            <summary>
+            True if matches any name and any namespace
+            </summary>
+        </member>
+        <member name="P:Wmhelp.XPath2.MS.XmlQualifiedNameTest.IsNameWildcard">
+            <summary>
+            True if matches any name
+            </summary>
+        </member>
+        <member name="P:Wmhelp.XPath2.MS.XmlQualifiedNameTest.IsNamespaceWildcard">
+            <summary>
+            True if matches any namespace
+            </summary>
+        </member>
+        <member name="M:Wmhelp.XPath2.MS.XmlQualifiedNameTest.IsSubsetOf(Wmhelp.XPath2.MS.XmlQualifiedNameTest)">
+            <summary>
+            True if this matches every QName other does
+            </summary>
+        </member>
+        <member name="M:Wmhelp.XPath2.MS.XmlQualifiedNameTest.HasIntersection(Wmhelp.XPath2.MS.XmlQualifiedNameTest)">
+            <summary>
+            Return true if the result of intersection with other is not empty
+            </summary>
+        </member>
+        <member name="M:Wmhelp.XPath2.MS.XmlQualifiedNameTest.ToString">
+            <summary>
+            String representation
+            </summary>
+        </member>
+        <member name="T:Wmhelp.XPath2.MS.XmlReservedNs">
+            <summary>
+            This class defines a set of common XML namespaces for sharing across multiple source files.
+            </summary>
+        </member>
+        <member name="T:TimSort.TimSort`1">
+            <summary>
+            A stable, adaptive, iterative mergesort that requires far fewer than
+            n lg(n) comparisons when running on partially sorted arrays, while
+            offering performance comparable to a traditional mergesort when run
+            on random arrays.  Like all proper mergesorts, this sort is stable and
+            runs O(n log n) time (worst case).  In the worst case, this sort requires
+            temporary storage space for n/2 object references; in the best case,
+            it requires only a small constant amount of space.
+            
+            This implementation was adapted from Tim Peters's list sort for
+            Python, which is described in detail here:
+            
+              http://svn.python.org/projects/python/trunk/Objects/listsort.txt
+            
+            Tim's C code may be found here:
+            
+              http://svn.python.org/projects/python/trunk/Objects/listobject.c
+            
+            The underlying techniques are described in this paper (and may have
+            even earlier origins):
+            
+             "Optimistic Sorting and Information Theoretic Complexity"
+             Peter McIlroy
+             SODA (Fourth Annual ACM-SIAM Symposium on Discrete Algorithms),
+             pp 467-474, Austin, Texas, 25-27 January 1993.
+            
+            While the API to this class consists solely of static methods, it is
+            (privately) instantiable; a TimSort instance holds the state of an ongoing
+            sort, assuming the input array is large enough to warrant the full-blown
+            TimSort. Small arrays are sorted in place, using a binary insertion sort.
+            @author Josh Bloch
+            
+            This class is converted from following class.
+            http://cr.openjdk.java.net/~martin/webrevs/openjdk7/timsort/raw_files/new/src/share/classes/java/util/TimSort.java
+            </summary>
+            <typeparam name="T">sort type</typeparam>
+        </member>
+        <member name="F:TimSort.TimSort`1.MIN_MERGE">
+            <summary>
+            This is the minimum sized sequence that will be merged.  Shorter
+            sequences will be lengthened by calling binarySort.  If the entire
+            array is less than this length, no merges will be performed.
+            
+            This constant should be a power of two.  It was 64 in Tim Peter's C
+            implementation, but 32 was empirically determined to work better in
+            this implementation.  In the unlikely event that you set this constant
+            to be a number that's not a power of two, you'll need to change the
+            <seealso cref="M:TimSort.TimSort`1.minRunLength(System.Int32)"/> computation.
+            
+            If you decrease this constant, you must change the stackLen
+            computation in the TimSort constructor, or you risk an
+            ArrayOutOfBounds exception.  See listsort.txt for a discussion
+            of the minimum stack length required as a function of the length
+            of the array being sorted and the minimum merge sequence length.
+            </summary>
+        </member>
+        <member name="F:TimSort.TimSort`1.a">
+            <summary>
+            The array being sorted.
+            </summary>
+        </member>
+        <member name="F:TimSort.TimSort`1.c">
+            <summary>
+            The comparator for this sort.
+            </summary>
+        </member>
+        <member name="F:TimSort.TimSort`1.MIN_GALLOP">
+            <summary>
+            When we get into galloping mode, we stay there until both runs win less
+            often than MIN_GALLOP consecutive times.
+            </summary>
+        </member>
+        <member name="F:TimSort.TimSort`1.minGallop">
+            <summary>
+            This controls when we get *into* galloping mode.  
+            It is initialized to MIN_GALLOP.  The mergeLo and
+            mergeHi methods nudge it higher for random data,
+            and lower for highly structured data.
+            </summary>
+        </member>
+        <member name="F:TimSort.TimSort`1.INITIAL_TMP_STORAGE_LENGTH">
+            <summary>
+            Maximum initial size of tmp array, which is used for
+            merging.  The array can grow to accommodate demand.
+            Unlike Tim's original C version, we do not allocate 
+            this much storage when sorting smaller arrays.
+            This change was required for performance.
+            </summary>
+        </member>
+        <member name="F:TimSort.TimSort`1.tmp">
+            <summary>
+            Temp storage for merges.
+            </summary>
+        </member>
+        <member name="F:TimSort.TimSort`1.stackSize">
+             A stack of pending runs yet to be merged.  Run i starts at
+             address base[i] and extends for len[i] elements.  It's always
+             true (so long as the indices are in bounds) that:
+            
+                 runBase[i] + runLen[i] == runBase[i + 1]
+            
+             so we could cut the storage for this, but it's a minor amount,
+             and keeping all the info explicit simplifies the code.
+            <summary>
+            Number of pending runs on stack
+            </summary>
+        </member>
+        <member name="M:TimSort.TimSort`1.#ctor(`0[],System.Collections.Generic.IComparer{`0})">
+            <summary>
+            Creates a TimSort instance to maintain the state of an ongoing sort.
+            </summary>
+            <param name="a">the array to be sorted</param>
+            <param name="c">the comparator to determine the order of the sort</param>
+        </member>
+        <member name="M:TimSort.TimSort`1.sort(`0[],System.Collections.Generic.IComparer{`0})">
+            <summary>
+            This method constitute the entire API of this class
+            </summary>
+            <param name="a">the array to be sorted</param>
+            <param name="c">the comparator to determine the order of the sort</param>
+        </member>
+        <member name="M:TimSort.TimSort`1.sort(`0[],System.Int32,System.Int32,System.Collections.Generic.IComparer{`0})">
+            <summary>
+            This method constitute the entire API of this class
+            </summary>
+            <param name="a">the array to be sorted</param>
+            <param name="lo"></param>
+            <param name="hi"></param>
+            <param name="c">Comparer</param>
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:TimSort.TimSort`1.binarySort(`0[],System.Int32,System.Int32,System.Int32,System.Collections.Generic.IComparer{`0})" -->
+        <!-- Badly formed XML comment ignored for member "M:TimSort.TimSort`1.countRunAndMakeAscending(`0[],System.Int32,System.Int32,System.Collections.Generic.IComparer{`0})" -->
+        <member name="M:TimSort.TimSort`1.reverseRange(`0[],System.Int32,System.Int32)">
+            <summary>
+            Reverse the specified range of the specified array.
+            </summary>
+            <param name="a">the array in which a range is to be reversed</param>
+            <param name="lo">the index of the first element in the range to be reversed</param>
+            <param name="hi">the index after the last element in the range to be reversed</param>
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:TimSort.TimSort`1.minRunLength(System.Int32)" -->
+        <member name="M:TimSort.TimSort`1.pushRun(System.Int32,System.Int32)">
+            <summary>
+            Pushes the specified run onto the pending-run stack.
+            </summary>
+            <param name="runBase">index of the first element in the run</param>
+            <param name="runLen">the number of elements in the run</param>
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:TimSort.TimSort`1.mergeCollapse" -->
+        <member name="M:TimSort.TimSort`1.mergeForceCollapse">
+            <summary>
+            Merges all runs on the stack until only one remains.
+            This method is called once, to complete the sort.
+            </summary>
+        </member>
+        <member name="M:TimSort.TimSort`1.mergeAt(System.Int32)">
+            <summary>
+            Merges the two runs at stack indices i and i+1.  Run i must be
+            the penultimate or antepenultimate run on the stack.  In other words,
+            i must be equal to stackSize-2 or stackSize-3.
+            </summary>
+            <param name="i">stack index of the first of the two runs to merge</param>
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:TimSort.TimSort`1.gallopLeft(`0,`0[],System.Int32,System.Int32,System.Int32,System.Collections.Generic.IComparer{`0})" -->
+        <!-- Badly formed XML comment ignored for member "M:TimSort.TimSort`1.gallopRight(`0,`0[],System.Int32,System.Int32,System.Int32,System.Collections.Generic.IComparer{`0})" -->
+        <!-- Badly formed XML comment ignored for member "M:TimSort.TimSort`1.mergeLo(System.Int32,System.Int32,System.Int32,System.Int32)" -->
+        <!-- Badly formed XML comment ignored for member "M:TimSort.TimSort`1.mergeHi(System.Int32,System.Int32,System.Int32,System.Int32)" -->
+        <member name="M:TimSort.TimSort`1.ensureCapacity(System.Int32)">
+            <summary>
+            Ensures that the external array tmp has at least the specified
+            number of elements, increasing its size if necessary.  The size
+            increases exponentially to ensure amortized linear time complexity.
+            </summary>
+            <param name="minCapacity">the minimum required capacity of the tmp array</param>
+            <returns>tmp, whether or not it grew</returns>
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:TimSort.TimSort`1.rangeCheck(System.Int32,System.Int32,System.Int32)" -->
+    </members>
+</doc>
